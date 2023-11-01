@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnMath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Math" />
+
+    <Button
+        android:id="@+id/btnPhysics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Physics" />
+
+    <Button
+        android:id="@+id/btnMarvel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marvel Super Heroes" />
+
+    <Button
+        android:id="@+id/btnHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History" />
+
+    <Button
+        android:id="@+id/btnScience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Science" />
+
+</LinearLayout>
