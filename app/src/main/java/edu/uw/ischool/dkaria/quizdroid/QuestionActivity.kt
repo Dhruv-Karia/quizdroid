@@ -13,14 +13,15 @@ class QuestionActivity : ComponentActivity() {
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     private var incorrectAnswers = 0
+    private lateinit var topicName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
         currentQuestionIndex = intent.getIntExtra("QUESTION_INDEX", 0)
-        val topicName = intent.getStringExtra("TOPIC_NAME")
-        val topic = topics.find { it.topicName == topicName }
+        topicName = intent.getStringExtra("TOPIC_NAME") ?: ""
+        val topic = (application as QuizApp).topicRepository.getTopicByName(topicName)
         val questions = topic?.questions
 
         correctAnswers = intent.getIntExtra("CORRECT_ANSWERS", 0)
@@ -30,30 +31,35 @@ class QuestionActivity : ComponentActivity() {
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
 
-        tvQuestion.text = questions?.get(currentQuestionIndex)?.questionText
+        if (questions != null && currentQuestionIndex < questions.size) {
+            val currentQuestion = questions[currentQuestionIndex].question
 
-        questions?.get(currentQuestionIndex)?.answers?.forEachIndexed { index, answer ->
-            val radioButton = RadioButton(this)
-            radioButton.text = answer
-            radioGroup.addView(radioButton)
-            if (index == questions[currentQuestionIndex].correctAnswerIndex) {
-                radioButton.tag = "Correct"
+            tvQuestion.text = currentQuestion.questionText
+
+            currentQuestion.answers.forEachIndexed { index, answer ->
+                val radioButton = RadioButton(this)
+                radioButton.text = answer
+                radioGroup.addView(radioButton)
+                if (index == currentQuestion.correctAnswerIndex) {
+                    radioButton.tag = "Correct"
+                }
             }
-        }
 
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            btnSubmit.visibility = View.VISIBLE
-        }
+            radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                btnSubmit.visibility = View.VISIBLE
+            }
 
-        btnSubmit.setOnClickListener {
-            val selectedRadioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-            val intent = Intent(this, AnswerActivity::class.java)
-            intent.putExtra("TOPIC_NAME", topicName)
-            intent.putExtra("QUESTION_INDEX", currentQuestionIndex)
-            intent.putExtra("USER_ANSWER", selectedRadioButton.text.toString())
-            intent.putExtra("CORRECT_ANSWERS", correctAnswers)
-            intent.putExtra("INCORRECT_ANSWERS", incorrectAnswers)
-            startActivity(intent)
+            btnSubmit.setOnClickListener {
+                val selectedRadioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+                val userAnswer = selectedRadioButton.text.toString()
+                val intent = Intent(this, AnswerActivity::class.java)
+                intent.putExtra("TOPIC_NAME", topicName)
+                intent.putExtra("QUESTION_INDEX", currentQuestionIndex)
+                intent.putExtra("USER_ANSWER", userAnswer)
+                intent.putExtra("CORRECT_ANSWERS", correctAnswers)
+                intent.putExtra("INCORRECT_ANSWERS", incorrectAnswers)
+                startActivity(intent)
+            }
         }
     }
 }
