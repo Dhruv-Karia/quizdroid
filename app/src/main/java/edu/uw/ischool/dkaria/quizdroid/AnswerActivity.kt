@@ -20,7 +20,7 @@ class AnswerActivity : ComponentActivity() {
         val topic = (application as QuizApp).topicRepository.getTopicByName(topicName!!)
         val currentTopicQuestions = topic?.questions
         if (currentTopicQuestions != null && questionIndex < currentTopicQuestions.size) {
-            val question = currentTopicQuestions[questionIndex].question
+            val question = currentTopicQuestions[questionIndex]
 
             val tvCorrectAnswer = findViewById<TextView>(R.id.tvCorrectAnswer)
             val tvUserAnswer = findViewById<TextView>(R.id.tvUserAnswer)

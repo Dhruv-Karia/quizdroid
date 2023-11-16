@@ -1,5 +1,4 @@
 package edu.uw.ischool.dkaria.quizdroid
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +8,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val settingsButton = findViewById<Button>(R.id.settingsButton)
+        settingsButton.setOnClickListener {
+            val intent = Intent(this, PreferencesActivity::class.java)
+            startActivity(intent)
+        }
 
         val btnMath = findViewById<Button>(R.id.btnMath)
         btnMath.setOnClickListener {

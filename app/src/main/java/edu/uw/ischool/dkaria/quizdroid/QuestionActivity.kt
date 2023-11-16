@@ -32,7 +32,7 @@ class QuestionActivity : ComponentActivity() {
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
 
         if (questions != null && currentQuestionIndex < questions.size) {
-            val currentQuestion = questions[currentQuestionIndex].question
+            val currentQuestion = questions[currentQuestionIndex]
 
             tvQuestion.text = currentQuestion.questionText
 

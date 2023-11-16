@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="url"
+        android:title="URL"
+        android:summary="URL to use for question data"
+        android:defaultValue="https://dhruv-karia.github.io/JSONhost/second.json" />
+    <EditTextPreference
+        android:key="interval"
+        android:title="Interval"
+        android:summary="How often to check for new downloads (in minutes)"
+        android:inputType="number"
+        android:defaultValue="60" />
+</PreferenceScreen>
