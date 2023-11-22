@@ -5,11 +5,16 @@ import android.util.Log
 
 class QuizApp : Application() {
     val topicRepository: TopicRepository by lazy {
-        InMemoryTopicRepository()
+        val repo = InMemoryTopicRepository(this)
+        repo.getAllTopics()
+        repo
     }
 
     override fun onCreate() {
         super.onCreate()
+
         Log.d("QuizApp", "QuizApp is loaded and running.")
+        val repo = topicRepository
     }
 }
+

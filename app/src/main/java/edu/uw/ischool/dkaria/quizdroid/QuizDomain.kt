@@ -6,13 +6,13 @@ data class Question(
     val correctAnswerIndex: Int
 )
 
-data class Quiz(
-    val question: Question
-)
-
 data class Topic(
     val title: String,
     val shortDescription: String,
     val longDescription: String,
-    val questions: List<Quiz>
+    val questions: List<Question>
+)
+
+data class TopicsWrapper(
+    val topics: List<Topic>
 )
